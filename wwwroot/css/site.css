@@ -1,0 +1,26 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background: #fffaee;
+}
+
+.logo {
+    margin-top: 100px;
+    margin-left: 400px;
+    height: 479px;
+    width: 400px;
+}
