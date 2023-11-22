@@ -24,3 +24,18 @@ body {
     height: 479px;
     width: 400px;
 }
+/* CUSTOM CLASSES*/
+
+.th-side-nav {
+    background-color: #FFDE90;
+    color: #000000;
+}
+
+.th-navbar {
+    background-color: #8F5353;
+    color: #FFFAEE;
+}
+
+.th-section {
+    background-color: #DBD6CA;
+}
