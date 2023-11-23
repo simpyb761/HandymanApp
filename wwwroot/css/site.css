@@ -9,8 +9,9 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    background-color: #FFFAEE;
 }
 
 body {
@@ -19,14 +20,13 @@ body {
 }
 
 .logo {
-    margin-top: 100px;
-    margin-left: 400px;
     height: 479px;
     width: 400px;
 }
 /* CUSTOM CLASSES*/
 
 .th-side-nav {
+    height:200px;
     background-color: #FFDE90;
     color: #000000;
 }
