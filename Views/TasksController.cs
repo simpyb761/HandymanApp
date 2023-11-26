@@ -19,12 +19,75 @@ namespace Handyman.Views
         }
 
         // GET: Tasks
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return _context.Tasks != null ? 
+        //                  View(await _context.Tasks.ToListAsync()) :
+        //                  Problem("Entity set 'TaskContext.Tasks'  is null.");
+        //}
+
+
+
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-              return _context.Tasks != null ? 
-                          View(await _context.Tasks.ToListAsync()) :
-                          Problem("Entity set 'TaskContext.Tasks'  is null.");
+            //ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CatSortParam"] = sortOrder == "Category" ? "cat_desc" : "Category";
+            ViewData["SkillSortParam"] = sortOrder == "Skill" ? "skill_desc" : "Skill";
+
+
+            //if (searchString != null)
+            //{
+            //    pageNumber = 1;
+            //}
+            //else
+            //{
+            //    searchString = currentFilter;
+            //}
+            //ViewData["CurrentFilter"] = searchString;
+
+
+            var tasks = from t in _context.Tasks
+                            select t;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tasks = tasks.Where(s => s.TaskName.Contains(searchString));
+                                        
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    tasks = tasks.OrderByDescending(s => s.TaskName);
+                    break;
+                case "Category":
+                    tasks = tasks.OrderBy(s => s.Category);
+                    break;
+                case "cat_desc":
+                    tasks = tasks.OrderByDescending(s => s.Category);
+                    break;
+                case "Skill":
+                    tasks = tasks.OrderBy(s => s.SkillLevel);
+                    break;
+                case "skill_desc":
+                    tasks = tasks.OrderByDescending(s => s.SkillLevel);
+                    break;
+                default:
+                    tasks = tasks.OrderBy(s => s.TaskName);
+                    break;
+            }
+            //int pageSize = 3;
+            return View(tasks);
+            //return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
+
+
+
+
+
+
 
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -43,6 +106,8 @@ namespace Handyman.Views
 
             return View(tasks);
         }
+
+      
 
         // GET: Tasks/Create
         public IActionResult Create()
