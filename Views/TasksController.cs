@@ -28,13 +28,14 @@ namespace Handyman.Views
 
 
 
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
+        public async Task<IActionResult> Index(string sortOrder, string filterCategory, string searchString, int? pageNumber)
         {
             //ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CatSortParam"] = sortOrder == "Category" ? "cat_desc" : "Category";
             ViewData["SkillSortParam"] = sortOrder == "Skill" ? "skill_desc" : "Skill";
 
+                
 
             //if (searchString != null)
             //{
@@ -54,6 +55,15 @@ namespace Handyman.Views
                 tasks = tasks.Where(s => s.TaskName.Contains(searchString));
                                         
             }
+            
+            //if (!String.IsNullOrEmpty(filterCategory) )
+            //{
+                
+            //    tasks = tasks.Where(task => task.Category.ToString().Contains( filterCategory ));
+            //}
+
+
+
 
 
             switch (sortOrder)
