@@ -55,12 +55,11 @@ namespace Handyman.Views
                 tasks = tasks.Where(s => s.TaskName.Contains(searchString));
                                         
             }
-            
-            //if (!String.IsNullOrEmpty(filterCategory) )
-            //{
-                
-            //    tasks = tasks.Where(task => task.Category.ToString().Contains( filterCategory ));
-            //}
+
+            if (!String.IsNullOrEmpty(filterCategory) && Enum.TryParse(typeof(Categories), filterCategory, out object filterEnum))
+            {
+                tasks = tasks.Where(task => task.Category == (Categories)filterEnum);
+            }
 
 
 
