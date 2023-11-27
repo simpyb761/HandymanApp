@@ -35,19 +35,6 @@ namespace Handyman.Views
             ViewData["CatSortParam"] = sortOrder == "Category" ? "cat_desc" : "Category";
             ViewData["SkillSortParam"] = sortOrder == "Skill" ? "skill_desc" : "Skill";
 
-                
-
-            //if (searchString != null)
-            //{
-            //    pageNumber = 1;
-            //}
-            //else
-            //{
-            //    searchString = currentFilter;
-            //}
-            //ViewData["CurrentFilter"] = searchString;
-
-
             var tasks = from t in _context.Tasks
                             select t;
             if (!String.IsNullOrEmpty(searchString))
@@ -60,10 +47,6 @@ namespace Handyman.Views
             {
                 tasks = tasks.Where(task => task.Category == (Categories)filterEnum);
             }
-
-
-
-
 
             switch (sortOrder)
             {
@@ -86,17 +69,8 @@ namespace Handyman.Views
                     tasks = tasks.OrderBy(s => s.TaskName);
                     break;
             }
-            //int pageSize = 3;
             return View(tasks);
-            //return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
-
-
-
-
-
-
-
 
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)

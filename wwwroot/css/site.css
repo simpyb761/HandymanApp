@@ -39,3 +39,12 @@ body {
 .th-section {
     background-color: #DBD6CA;
 }
+.th-btn {
+    background: none;
+    border: 2px solid #8F5353;
+    width:40%;
+
+}
+.th-btn:hover {
+    border: 2px solid #000000;
+}
