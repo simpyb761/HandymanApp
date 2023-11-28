@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Handyman.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Handyman.Views
+namespace Handyman.Controllers
 {
     public class TasksController : Controller
     {
@@ -32,19 +32,19 @@ namespace Handyman.Views
         public async Task<IActionResult> Index(string sortOrder, string filterCategory, string searchString, int? pageNumber)
         {
             //ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["NameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CatSortParam"] = sortOrder == "Category" ? "cat_desc" : "Category";
             ViewData["SkillSortParam"] = sortOrder == "Skill" ? "skill_desc" : "Skill";
 
             var tasks = from t in _context.Tasks
-                            select t;
-            if (!String.IsNullOrEmpty(searchString))
+                        select t;
+            if (!string.IsNullOrEmpty(searchString))
             {
                 tasks = tasks.Where(s => s.TaskName.Contains(searchString));
-                                        
+
             }
 
-            if (!String.IsNullOrEmpty(filterCategory) && Enum.TryParse(typeof(Categories), filterCategory, out object filterEnum))
+            if (!string.IsNullOrEmpty(filterCategory) && Enum.TryParse(typeof(Categories), filterCategory, out object filterEnum))
             {
                 tasks = tasks.Where(task => task.Category == (Categories)filterEnum);
             }
@@ -198,14 +198,14 @@ namespace Handyman.Views
             {
                 _context.Tasks.Remove(tasks);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TasksExists(int id)
         {
-          return (_context.Tasks?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Tasks?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

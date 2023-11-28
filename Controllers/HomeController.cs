@@ -28,5 +28,18 @@ namespace Handyman.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpGet]
+        public IActionResult Location()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Location(string location)
+        {
+            var testLocation = location;
+            HttpContext.Session.SetString("location", testLocation);
+            return RedirectToAction("Index");
+
+        }
     }
 }

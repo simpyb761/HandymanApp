@@ -47,18 +47,62 @@
             @Html.DisplayFor(model => model.Duration)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VideoLink)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VideoLink)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EstimatedPrice)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EstimatedPrice)
         </dd>
+        <dt class="col-sm-10">
+            @Html.DisplayNameFor(model => model.VideoLink)
+        </dt>
+        <dd class="col-sm-10">
+            <iframe width="400" height="200" src="@Html.DisplayFor(model=> model.VideoLink)" title="Youtube Video Player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+            </iframe>
+        </dd>
     </dl>
+    @{
+
+    var userLocation = Context.Session.GetString("location");
+    string category;
+    string baseSearchQuery;
+
+    if (Model.Category.ToString() == "Lawn")
+    {
+        category = "lawn%20care";
+    }
+    else if (Model.Category.ToString() == "Home")
+    {
+        category = "hardware%20store";
+    }
+    else
+    {
+        category = "auto%20store";
+    }
+
+    if (String.IsNullOrEmpty(userLocation))
+    {
+        baseSearchQuery = $"https://www.google.com/maps/embed/v1/search?q={category}&key=AIzaSyBjsdfOWs2qMcLpyGICc3QF_FdCJZoeetk";
+    }
+    else
+    {
+        baseSearchQuery = $"https://www.google.com/maps/embed/v1/search?q={category}%20";
+
+        if (userLocation.Contains(" "))
+        {
+            string[] locationSplit = userLocation.Split(" ");
+            baseSearchQuery += string.Join("%20", locationSplit);
+        }
+        else
+        {
+            baseSearchQuery += userLocation;
+        }
+
+        baseSearchQuery += "&key=AIzaSyBjsdfOWs2qMcLpyGICc3QF_FdCJZoeetk";
+    }
+
+    <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen src="@baseSearchQuery"></iframe>
+}
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

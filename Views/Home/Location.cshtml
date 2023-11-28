@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Location Page";
+}
+
+<body>
+    <header>
+        <div class="row">
+            <div class="logo-row">
+                <img src="/images/logo.png" alt="logo" class="logo" />
+            </div>
+        </div>
+        <div class="row">
+            <form asp-action="Location">
+                <div class="form-group">
+                    <label class="control-label">User Location</label>
+                    <input name="Location" class="form-control" />
+                </div>
+                <input type="submit" value="Submit Location" class="btn" />
+            </form>
+        </div>
+    </header>
+</body>
