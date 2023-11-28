@@ -76,13 +76,39 @@ namespace Handyman.Controllers
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null || _context.Tasks == null)
             {
                 return NotFound();
             }
-
+            
             var tasks = await _context.Tasks
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            // Split the Steps string into an array
+            string[] stepValues = tasks.Steps.Split(',');
+
+            // Convert the array to a List<string>
+            List<string> stepList = new List<string>();
+
+            for (int i = 0; i < stepValues.Length; i++)
+            {
+                string currentStep = stepValues[i].Trim();
+                if (currentStep.Any(char.IsDigit))
+                {
+                    // Display the number and the step on the same line
+                    stepList.Add($"{currentStep.TrimStart('0', ' ', '.')}.");
+                }
+                else if (stepList.Count > 0)
+                {
+                    // If it doesn't contain a number, append it to the previous step
+                    stepList[stepList.Count - 1] += " " + currentStep;
+                }
+            }
+
+            // Pass the stepList to the view using ViewBag or ViewData
+            ViewBag.StepList = stepList;
+
             if (tasks == null)
             {
                 return NotFound();
