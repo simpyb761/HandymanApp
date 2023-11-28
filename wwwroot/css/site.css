@@ -48,3 +48,6 @@ body {
 .th-btn:hover {
     border: 2px solid #000000;
 }
+.text-black:hover {
+    color: #8F5353 !important;
+}
