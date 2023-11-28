@@ -65,10 +65,28 @@
                         @Html.DisplayFor(modelItem => item.SkillLevel)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Duration)
-                 
+                            @{
+                                int duration = 0;
+                                string output;
+                                if (item.Duration > 1440)
+                                {
+                                    duration = item.Duration / 60 /24;
+                                    output = $"{duration} days";
+                                }
+                                else if(item.Duration > 60)
+                                {
+                                    duration = item.Duration / 60;
+                                    output = $"{duration} hours";
+                                }
+                                else
+                                {
+                                    output = $"{item.Duration} minutes";
+                                }
+                              
+                            }
+                            <p>@output</p>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EstimatedPrice)
+                        $@Html.DisplayFor(modelItem => item.EstimatedPrice)
                     </td>
                     <td>
                             @if (User.IsInRole("Admin")) {
