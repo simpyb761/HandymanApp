@@ -6,6 +6,19 @@
 
 <h1 class="text-center">How-To</h1>
 
+
+<div class="row">
+    <div class="col-sm-3 th-side-nav mb-2 me-2 rounded">
+        <h3 class="pt-2">Categories</h3>
+        <p>Home</p>
+        <p>Auto</p>
+        <p>Lawn</p>
+
+        <p class="">
+            @if (User.IsInRole("Admin")) {
+                <a asp-action="Create">Create New</a>}
+        </p>
+    </div>
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
@@ -28,11 +41,26 @@
             </p>
         </form>
     </div>
+
     <div class="th-section col-md-8 overflow-hidden rounded">
         <table class="table">
             <thead>
                 <tr>
                     <th>
+
+                        @Html.DisplayNameFor(model => model.TaskName)
+                    </th>
+                    @* <th>
+                        @Html.DisplayNameFor(model => model.Tools)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Steps)
+                    </th> *@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+
                         <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" class="text-black">Task Name</a>
                     </th>
 
@@ -41,13 +69,22 @@
                     </th>
                     <th>
                         <a asp-action="Index" asp-route-sortOrder="@ViewData["SkillSortParam"]" class="text-black">Skill Level</a>
+
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Duration)
                     </th>
 
+                    @* <th>
+                        @Html.DisplayNameFor(model => model.VideoLink)
+                    </th> *@
+                    <th>
+                        @Html.DisplayNameFor(model => model.EstimatedPrice)
+
+
                     <th>
                         Estimated Price
+
                     </th>
                     <th></th>
                 </tr>
@@ -60,6 +97,15 @@
                         @Html.DisplayFor(modelItem => item.TaskName)
                     </td>
 
+                    @* <td>
+                        @Html.DisplayFor(modelItem => item.Tools)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Steps)
+                    </td> *@
+
+
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
@@ -68,7 +114,21 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Duration)
+
+                    @* <td>
+                        @Html.DisplayFor(modelItem => item.VideoLink)
+                    </td> *@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstimatedPrice)
                     </td>
+                        <td>
+                            @if (User.IsInRole("Admin")) {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            }
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+
                     <td>
                         @Html.DisplayFor(modelItem => item.EstimatedPrice)
                     </td>
@@ -76,10 +136,13 @@
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
                     </td>
                 </tr>
         }
             </tbody>
         </table>
     </div>
+
 </div>
+
