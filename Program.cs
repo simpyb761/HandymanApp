@@ -1,3 +1,4 @@
+using AspnetIdentityRoleBasedTutorial.Data;
 using Handyman.Data;
 using Handyman.Models;
 using Microsoft.AspNetCore.Identity;
@@ -9,12 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+   // .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDbContext<TaskContext>(options =>
 options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
+
 
 builder.Services.AddControllersWithViews();
 
@@ -44,5 +51,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope()) {
+    await DbSeeder.SeedRolesAndAdminAsync(scope.ServiceProvider);
+}
 
 app.Run();
