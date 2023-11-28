@@ -26,7 +26,12 @@
             @Html.DisplayNameFor(model => model.Steps)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Steps)
+            <ul>
+                @foreach (var step in ViewBag.StepList)
+                {
+                    <li>@step</li>
+                }
+            </ul>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
