@@ -6,61 +6,60 @@
 
 <h1 class="text-center">How-To</h1>
 
-
-<div class="row">
-    <div class="col-sm-3 th-side-nav mb-2 me-2 rounded">
-        <h3 class="pt-2">Categories</h3>
-        <p>Home</p>
-        <p>Auto</p>
-        <p>Lawn</p>
-        <p class="">
-            <a asp-action="Create">Create New</a>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="searchString" value="@ViewData["currentFilter"]" style="width:30%;"/>
+            <input type="submit" value="Search" class="th-btn " style="max-width:20%"/>
         </p>
     </div>
-
+</form>
+<div class="row">
+    
+    <div class="col-sm-3 th-side-nav mb-2 me-2 rounded">
+        <form asp-action="Index" method="get">
+        
+            <h3 class="pt-2">Categories</h3>
+            <input type="submit" name="filterCategory" value="Home" class="mt-2 th-btn"/><br/>
+            <input type="submit" name="filterCategory" value="Auto" class="mt-2 th-btn" /><br />
+            <input type="submit" name="filterCategory" value="Lawn" class="mt-2 th-btn" />
+            <p class="py-2">
+                <a asp-action="Create" class="text-black">Create New How-To</a>
+            </p>
+        </form>
+    </div>
     <div class="th-section col-md-8 overflow-hidden rounded">
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.TaskName)
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" class="text-black">Task Name</a>
                     </th>
-                    @* <th>
-                        @Html.DisplayNameFor(model => model.Tools)
-                    </th>
+
                     <th>
-                        @Html.DisplayNameFor(model => model.Steps)
-                    </th> *@
-                    <th>
-                        @Html.DisplayNameFor(model => model.Category)
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CatSortParam"]" class="text-black">Category</a>
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.SkillLevel)
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["SkillSortParam"]" class="text-black">Skill Level</a>
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Duration)
                     </th>
-                    @* <th>
-                        @Html.DisplayNameFor(model => model.VideoLink)
-                    </th> *@
+
                     <th>
-                        @Html.DisplayNameFor(model => model.EstimatedPrice)
+                        Estimated Price
                     </th>
                     <th></th>
                 </tr>
             </thead>
+
             <tbody>
         @foreach (var item in Model) {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.TaskName)
                     </td>
-                    @* <td>
-                        @Html.DisplayFor(modelItem => item.Tools)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Steps)
-                    </td> *@
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
@@ -70,9 +69,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Duration)
                     </td>
-                    @* <td>
-                        @Html.DisplayFor(modelItem => item.VideoLink)
-                    </td> *@
                     <td>
                         @Html.DisplayFor(modelItem => item.EstimatedPrice)
                     </td>
