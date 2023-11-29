@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h2>How-To...</h2>
 
 <div class="th-section p-2 rounded">
     <h3>@Html.DisplayFor(model => model.TaskName)</h3>
@@ -44,13 +44,32 @@
             @Html.DisplayNameFor(model => model.Duration)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Duration)
+            @{
+                int duration = 0;
+                string output;
+                if (Model.Duration > 1440)
+                {
+                    duration = Model.Duration / 60 / 24;
+                    output = $"{duration} days";
+                }
+                else if (Model.Duration > 60)
+                {
+                    duration = Model.Duration / 60;
+                    output = $"{duration} hours";
+                }
+                else
+                {
+                    output = $"{Model.Duration} minutes";
+                }
+
+            }
+            <p>@output</p>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EstimatedPrice)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EstimatedPrice)
+           $@Html.DisplayFor(model => model.EstimatedPrice)
         </dd>
         <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.VideoLink)
@@ -104,7 +123,7 @@
     <div class="text-center">
         <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen src="@baseSearchQuery"></iframe>
     </div>
-    <div class="text-center">
+    <div class="text-center mt-2">
         <a asp-action="Edit" asp-route-id="@Model?.Id" class="th-btn th-text px-2 rounded" >Edit</a> <br/>
         <a asp-action="Index" class="th-btn th-text px-2 rounded mt-2" >Back to List</a>
     </div>
