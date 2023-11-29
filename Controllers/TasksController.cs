@@ -35,6 +35,8 @@ namespace Handyman.Controllers
             ViewData["NameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CatSortParam"] = sortOrder == "Category" ? "cat_desc" : "Category";
             ViewData["SkillSortParam"] = sortOrder == "Skill" ? "skill_desc" : "Skill";
+            ViewData["TimeSortParam"] = sortOrder == "Duration" ? "duration_desc" : "Duration";
+
 
             var tasks = from t in _context.Tasks
                         select t;
@@ -65,6 +67,12 @@ namespace Handyman.Controllers
                     break;
                 case "skill_desc":
                     tasks = tasks.OrderByDescending(s => s.SkillLevel);
+                    break;
+                case "Duration":
+                    tasks = tasks.OrderBy(s => s.Duration);
+                    break;
+                case "duration_desc":
+                    tasks = tasks.OrderByDescending(s => s.Duration);
                     break;
                 default:
                     tasks = tasks.OrderBy(s => s.TaskName);

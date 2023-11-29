@@ -47,7 +47,7 @@
 
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Duration)
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParam"]" class="text-black">Duration</a>
                     </th>                 
                     <th>
                         @Html.DisplayNameFor(model => model.EstimatedPrice)               
