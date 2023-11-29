@@ -51,3 +51,11 @@ body {
 .text-black:hover {
     color: #8F5353 !important;
 }
+.th-text {
+    color: #8F5353;
+    text-decoration:none;
+}
+.th-text:hover {
+    color: black;
+    text-decoration: 2px underline solid #8F5353;
+}
